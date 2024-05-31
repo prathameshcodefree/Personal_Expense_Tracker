@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login Page</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$('#loginForm').submit(function (event) {
+				event.preventDefault(); // Prevent the form from submitting normally
+
+				// Get the username and password from the form
+				var userName = $('#userName').val();
+				var password = $('#password').val();
+
+				// Send AJAX request to authenticate user
+				$.ajax({
+					url: 'http://localhost:8080/auth/user/login',
+					type: 'POST',
+					contentType: 'application/json',
+					data: JSON.stringify({
+						"userName": userName,
+						"password": password
+					}),
+					success: function (response) {
+						// Handle successful authentication
+						console.log(response);
+						$('#loginAlert').removeClass('alert-danger').addClass('alert-success').text('Login successful!').show();
+						// Redirect to another page or perform other actions upon successful login
+						window.location.href = '/Dashboard.html';
+					},
+					error: function (xhr, status, error) {
+						// Handle authentication errors
+						console.log('Error:', error);
+						$('#loginAlert').removeClass('alert-success').addClass('alert-danger').text('Login failed! Please check your username and password.').show();
+					}
+				});
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Personal Expense Tracker</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse col-9" id="navbarNav">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="/Dashboard.html">Dashboard</a>
+				</li>
+			
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						User
+					</a>
+					<div class="dropdown-menu pd-5" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="/Login.html">Login</a>
+						<a class="dropdown-item" href="/SignUp.html">Signup</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="/Logout.html">Logout</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="row justify-content-center mt-5">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">
+						<h2 class="text-center">Login</h2>
+					</div>
+					<div class="card-body">
+						<form id="loginForm">
+							<div class="form-group">
+								<label for="userName">Username:</label>
+								<input type="text" id="userName" name="userName" class="form-control" required>
+							</div>
+							<div class="form-group">
+								<label for="password">Password:</label>
+								<input type="password" id="password" name="password" class="form-control" required>
+							</div>
+							<button type="submit" class="btn btn-primary btn-block">Login</button>
+						</form>
+					</div>
+				</div>
+				<div id="loginAlert" class="alert mt-3" style="display: none;"></div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

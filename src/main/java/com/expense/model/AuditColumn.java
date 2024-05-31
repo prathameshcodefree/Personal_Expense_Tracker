@@ -3,6 +3,9 @@ package com.expense.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import com.expense.model.constant.UserType;
 
 import jakarta.persistence.Column;
@@ -19,23 +22,21 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class AuditColumn  implements Serializable {
+public abstract class AuditColumn implements Serializable {
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "updated_by_type")
-	private UserType updatedByType;
+//	@Enumerated(EnumType.STRING)
+//	@Column(name = "updated_by_type")
+//	private UserType updatedByType;
 
-
-	
+	@CreationTimestamp
 	@Column(name = "updated_at")
 	private Date updatedAt;
-	
-	@Enumerated(EnumType.STRING)
-	@Column(name = "created_by_type")
-	private UserType createdByType;
-	
+
+//	@Enumerated(EnumType.STRING)
+//	@Column(name = "created_by_type")
+//	private UserType createdByType;
+	@UpdateTimestamp
 	@Column(name = "created_at")
 	private Date createdAt;
-
 
 }

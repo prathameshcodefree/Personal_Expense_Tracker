@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Expense Tracker Dashboard</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	
+	 <style>
+        .animation-text {
+            animation-name: slideInLeft;
+            animation-duration: 2s;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Personal Expense Tracker</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse col-9" id="navbarNav">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="/Dashboard.html">Dashboard</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/AddTransaction.html">Add Transaction</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						User
+					</a>
+					<div class="dropdown-menu pd-5" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="/Login.html">Login</a>
+						<a class="dropdown-item" href="/SignUp.html">Signup</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="/Logout.html">Logout</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container mt-5">
+		<div class="row">
+			<div class="col-md-6 offset-md-3 text-center">
+				<h1 class="animation-text">Welcome to Personal Expense Tracker</h1>
+			</div>
+		</div>
+	</div>
+
+
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

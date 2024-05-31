@@ -1,5 +1,6 @@
 package com.expense.model.DTO;
 
+import com.expense.model.AuditColumn;
 import com.expense.model.constant.UserType;
 
 import jakarta.persistence.EnumType;
@@ -19,7 +20,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class UserDTO  extends AuditColumn 	{
 	
 	
 	private Long id;
@@ -38,7 +39,7 @@ public class UserDTO {
 	private String password;
 
 	@Enumerated(EnumType.STRING)
-	private UserType user;
+	private UserType usertype;
 
 
 

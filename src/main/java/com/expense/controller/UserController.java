@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +29,7 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	@GetMapping("")
+	@GetMapping("/user")
 	public ResponseEntity<?> getAllUser() {
 		
 		
@@ -42,13 +43,16 @@ public class UserController {
 
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/user/{id}")
 	public ResponseEntity<?> getUserByID(@PathVariable Long id) {
 		UserDTO user = userService.getUserById(id);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
+	
+	
 
-	@PostMapping("/user")
+
+	@PostMapping("/user/signup")
 	public Map<String, String> createUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			Map<String, String> errors = new HashMap<>();
@@ -76,6 +80,13 @@ public class UserController {
 		response.put("message", "User updated successfully");
 		response.put("userId", updatedUser.getId().toString());
 		return response;
+	}
+	
+	@DeleteMapping("/user/{id}")
+	public ResponseEntity<?> deleteById(@PathVariable Long id){
+			userService.deleteById(id);
+			return new ResponseEntity<>("Succesfully deleted",HttpStatus.OK);
+		
 	}
 
 }

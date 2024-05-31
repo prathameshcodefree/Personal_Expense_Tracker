@@ -2,6 +2,8 @@ package com.expense.model;
 
 import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.expense.model.constant.TransactionType;
 
 import jakarta.persistence.Entity;
@@ -37,7 +39,8 @@ public class Transaction  extends AuditColumn{
 
 	@Enumerated(EnumType.STRING)
 	private TransactionType type;
-
+	
+	@CreationTimestamp
 	private Date date;
 
 	@ManyToOne

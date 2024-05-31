@@ -16,8 +16,9 @@ public class WalletController {
 	@Autowired
 	WalletService walletService;
 	
-    @GetMapping("/wallets/{id}")
-    public ResponseEntity<?> getById(@PathVariable Long id) {
-     return walletService.getById(id);
+    @GetMapping("/wallet/{userId}")
+    public ResponseEntity<?> getWalletByUserId(@PathVariable Long userId) {
+        return walletService.getById(userId);
     }
+ 
 }

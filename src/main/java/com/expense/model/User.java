@@ -46,14 +46,14 @@ public class User {
 	@Column(name = "Password")
 	private String password;
 	
-	@Column(name="UserType")
-	private UserType usertype;
-	@Column(name="account_status")
-	private String accountStatus; // "ACTIVE", "LOCKED"
-	@Column(name="login_attempts")
-	private Integer loginAttempts;
-	@Column(name="locked_date_time")
-	private LocalDateTime lockedDateTime;
+//	@Column(name="UserType")
+//	private UserType usertype;
+//	@Column(name="account_status")
+//	private String accountStatus; // "ACTIVE", "LOCKED"
+//	@Column(name="login_attempts")
+//	private Integer loginAttempts;
+//	@Column(name="locked_date_time")
+//	private LocalDateTime lockedDateTime;
 
 	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user")

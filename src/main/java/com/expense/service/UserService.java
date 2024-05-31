@@ -61,20 +61,7 @@ public class UserService {
 	}
 
 	//////////////////////////////////////////////////////////
-	 public User registerUser(User user) {
-	        // Check if the email is already registered
-	        Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
-	        if (existingUser.isPresent()) {
-	            throw new IllegalArgumentException("Email is already registered");
-	        }
 
-	        // Set default values for account status and login attempts
-	        user.setAccountStatus("ACTIVE");
-	        user.setLoginAttempts(0);
-
-	        // Save the user to the database
-	        return userRepository.save(user);
-	    }
 	public User login(LoginRequestDTO loginRequestDto) {
 		Optional<User> UserO = userRepository.findUserByUserName(loginRequestDto.getUserName());
 
@@ -99,9 +86,9 @@ public class UserService {
 		return userRepository.findUserByUserName(userName).orElse(null);
 	}
 
-	public boolean isUserValid(User user) {
-		return user != null && !"LOCKED".equals(user.getAccountStatus());
-	}
+//	public boolean isUserValid(User user) {
+//		return user != null && !"LOCKED".equals(user.getAccountStatus());
+//	}
 
 	
 	/*

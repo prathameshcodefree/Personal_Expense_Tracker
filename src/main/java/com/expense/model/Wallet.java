@@ -1,5 +1,7 @@
 package com.expense.model;
 
+import com.expense.model.constant.UserType;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

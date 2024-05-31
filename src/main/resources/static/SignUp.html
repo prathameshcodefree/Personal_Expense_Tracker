@@ -92,20 +92,24 @@
                 };
 
                 // Send AJAX request
-                $.ajax({
-                    url: 'http://localhost:8080/api/user/signup',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(userData),
-                    success: function (response) {
-                        $('#message').html('<div class="alert alert-success">User registered successfully!</div>');
-                    },
-                    error: function (error) {
-                        $('#message').html('<div class="alert alert-danger">Error: ' + error.responseText + '</div>');
-                    }
-                });
-            });
-        });
+               $.ajax({
+					url: 'http://localhost:8080/api/user/signup',  // Adjust the URL to your signup endpoint
+					type: 'POST',
+					contentType: 'application/json',
+					data: JSON.stringify(userData),
+					success: function (response) {
+						const userId = response.userId;
+						// Fetch wallet balance and transactions with the returned user ID
+						fetchUserBalance(userId);
+						fetchTransactions(userId);
+					},
+					error: function (xhr, textStatus, errorThrown) {
+						console.error(xhr.responseText);
+						alert('Failed to sign up. Please try again.');
+					}
+				});
+			});
+		});
     </script>
 </body>
 

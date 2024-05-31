@@ -52,19 +52,7 @@ public class UserController {
 	
 
 
-	@PostMapping("/user/signup")
-	public Map<String, String> createUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = new HashMap<>();
-			bindingResult.getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
-			return errors;
-		}
-		UserDTO createdUser = userService.createUser(userDTO);
-		Map<String, String> response = new HashMap<>();
-		response.put("message", "User created successfully");
-		response.put("userId", createdUser.getId().toString());
-		return response;
-	}
+	
 
 	@PutMapping("/user/{id}")
 	public Map<String, Object> updateUser(@PathVariable Long id, @Valid @RequestBody UserDTO userDTO,

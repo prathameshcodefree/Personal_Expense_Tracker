@@ -14,14 +14,14 @@ import com.expense.repository.WalletRepository;
 @Service
 public class WalletService {
 	@Autowired
-	WalletRepository walletRepository;
+	WalletRepository walletrepository;
 	
 	public ResponseEntity<?> getById(Long id) {
-		Optional<Wallet> wallet = walletRepository.findById(id);
-        if (!wallet.isPresent()) {
-            return new ResponseEntity<>("ID NOT PRESENT ",HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(wallet.get(), HttpStatus.OK);
+		Wallet wallet = walletrepository.findByUserId(id);
+		
+       
+            return new ResponseEntity<>(wallet,HttpStatus.OK);
+       
     }
 
 }

@@ -30,7 +30,7 @@ public class TransactionService {
 	        Wallet wallet = user.getWallet();
 	        if (wallet == null) {
 	            wallet = new Wallet();
-	            wallet.setUser(user);
+	            
 	            wallet.setBalance(0.0); // Initialize balance if wallet is null
 	            user.setWallet(wallet);
 	        }

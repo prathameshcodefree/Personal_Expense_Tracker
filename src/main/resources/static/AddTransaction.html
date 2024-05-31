@@ -55,13 +55,13 @@
                     amount: amount,
                     type: type,
                     user: {
-                        id: 19 // Assuming the user ID is fixed for this request
+                        id: {userId}// Assuming the user ID is fixed for this request
                     }
                 };
 
                 // Send AJAX request
                 $.ajax({
-                    url: 'http://localhost:8080/transactions',
+                    url: 'http://localhost:8080/transactions/',
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify(transactionData),

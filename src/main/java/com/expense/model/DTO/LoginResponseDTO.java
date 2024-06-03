@@ -13,10 +13,12 @@ public class LoginResponseDTO
 
 {
 
-	private boolean status;
-	private String message;
-
-	private UserDTO user;
+//	private boolean status;
+//	private String message;
+//
+//	private UserDTO user;
+	
+	private Long expiresIn;
 
 	private String token;
 

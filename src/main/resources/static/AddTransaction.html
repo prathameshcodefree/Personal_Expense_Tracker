@@ -4,13 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Transaction</title>
+    <title>Transaction Manager</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/js-base64@3.7.2/base64.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
 
     <div class="container mt-5">
+        <!-- Login Card -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title">Login</h5>
+            </div>
+            <div class="card-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Transaction Card -->
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">Add Transaction</h5>
@@ -38,43 +61,78 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#transactionForm').submit(function(event) {
-                event.preventDefault(); // Prevent the form from submitting normally
+        $(document).ready(function () {
+            // Handle login form submission
+            $('#loginForm').submit(function (event) {
+                event.preventDefault();
 
-                // Collect dynamic data from input fields
+                var username = $('#username').val();
+                var password = $('#password').val();
+
+                $.ajax({
+                    url: 'http://localhost:8080/auth/login',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ username: username, password: password }),
+                    success: function (response) {
+                        var token = response.token;
+                        localStorage.setItem('jwtToken', token);
+
+                        var userId = getUserIdFromToken(token);
+                        localStorage.setItem('userId', userId);
+
+                        console.log('Login successful, user ID:', userId);
+                        // Optionally redirect or update UI after successful login
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Login error:', error);
+                    }
+                });
+            });
+
+            // Handle transaction form submission
+            $('#transactionForm').submit(function (event) {
+                event.preventDefault();
+
                 var description = $('#description').val();
                 var amount = parseFloat($('#amount').val());
                 var type = $('#type').val();
+                var userId = localStorage.getItem('userId');
+                var token = localStorage.getItem('jwtToken');
 
-                // Construct the JSON data object
+                if (!token || !userId) {
+                    console.error('User is not logged in');
+                    return;
+                }
+
                 var transactionData = {
                     description: description,
                     amount: amount,
                     type: type,
-                    user: {
-                        id: {userId}// Assuming the user ID is fixed for this request
-                    }
+                    user: { id: userId }
                 };
 
-                // Send AJAX request
                 $.ajax({
                     url: 'http://localhost:8080/transactions/',
                     type: 'POST',
                     contentType: 'application/json',
+                    headers: { 'Authorization': 'Bearer ' + token },
                     data: JSON.stringify(transactionData),
-                    success: function(response) {
+                    success: function (response) {
                         console.log('Transaction added successfully:', response);
-                        // Handle success response here
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         console.error('Error adding transaction:', error);
-                        // Handle error here
                     }
                 });
             });
+
+            // Function to decode JWT token and extract user ID
+            function getUserIdFromToken(token) {
+                var payload = JSON.parse(atob(token.split('.')[1]));
+                return payload.userId; // Adjust the key as per your token's payload
+            }
         });
     </script>
 </body>

@@ -13,7 +13,6 @@ import com.expense.model.DTO.LoginResponseDTO;
 import com.expense.model.DTO.UserDTO;
 import com.expense.security.JWTService;
 import com.expense.service.AuthenticationService;
-import com.task.model.LoginResponse;
 
 @RestController
 @RequestMapping("/auth")

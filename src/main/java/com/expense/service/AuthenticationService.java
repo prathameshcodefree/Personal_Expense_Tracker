@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -41,12 +42,12 @@ public class AuthenticationService {
 	}
 
 	public User authenticate(LoginRequestDTO loginRequest) {
-		authenticationManager.authenticate(
+		UserDetails user = (UserDetails) authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()
 
-				));
+				)).getPrincipal();
 
-		return userRepository.findByEmail(loginRequest.getEmail()).orElseThrow();
+		return userRepository.findByEmail(user.getUsername()).orElseThrow();
 	}
 
 }
